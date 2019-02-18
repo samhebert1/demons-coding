@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     // Step 1
     signup() {
-      return this.auth.emailSignup(this.email.value, this.password.value);
+      return this.auth.emailSignup(this.email.value, this.password.value, this.name.value);
     }
 
     // Step 2

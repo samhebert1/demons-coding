@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
@@ -11,8 +10,9 @@ import {
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+// interface that defines user information types.
+// @TODO: Change interface User to comply with types for data synchronization.
 interface User {
-  uid: string;
   email: string;
   name: string;
 }
@@ -21,6 +21,7 @@ interface User {
   providedIn: 'root'
 })
 export class AuthService {
+
   user: Observable<User>;
 
   constructor(
@@ -32,7 +33,7 @@ export class AuthService {
     this.user = this.fAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.fStore.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.fStore.doc<User>(`helpers/${user.email}`).valueChanges();
         } else {
           return of(null);
         }
@@ -40,18 +41,29 @@ export class AuthService {
     );
   }
 
-  // Email Auth
-  emailSignup(email: string, password: string) {
-    return this.fAuth.auth.createUserWithEmailAndPassword(email, password)
-    .then(user => {
-      return this.setUserDoc(user);
-    })
-    .catch(error => this.handleError(error) );
+  // Email signup
+  async emailSignup(email: string, password: string, name: string ) {
+    try {
+      const user = await this.fAuth.auth.createUserWithEmailAndPassword(email, password);
+      return this.setUserDoc(name, email);
+    } catch (error) {
+      return this.handleError(error);
+    }
   }
+
+// Login function for email users
+  async loginEmail(email: string, password: string) {
+    try {
+    const result = await this.fAuth.auth.signInWithEmailAndPassword(email, password);
+    this.router.navigate(['home']);
+  } catch (error) {
+    return this.handleError(error);
+  }
+}
 
   // Update properties of user doc
   updateUser(user: User, data: any) {
-    return this.fStore.doc(`users/${user.uid}`).update(data);
+    return this.fStore.doc(`helpers/${user.email}`).update(data);
   }
 
   // Error Handler
@@ -61,13 +73,12 @@ export class AuthService {
   }
 
   // Sets user data to firestore after auth
-  private setUserDoc(user) {
-    const userRef: AngularFirestoreDocument<User> = this.fStore.doc(`users/${user.uid}`);
+  private setUserDoc(nameData, emailData) {
+    const userRef: AngularFirestoreDocument<User> = this.fStore.doc(`helpers/${emailData}`);
 
     const data: User = {
-      uid: user.uid,
-      email: user.email || null,
-      name: user.name
+      email: emailData || null,
+      name: nameData
     };
 
     return userRef.set(data);
