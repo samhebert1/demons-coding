@@ -1,13 +1,3 @@
 <p>
   login works!
 </p>
-
-<div *ngIf="(auth.user | async) || {} as user">
-  <form [formGroup]="signupForm" *ngIf="!user.uid" (ngSubmit)="signup()">
-
-    
-  </form>
-
-
-
-</div>
