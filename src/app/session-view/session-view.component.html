@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Lesson Name</th>
+    <th>Meet Time</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let session of sessions">
+
+      <td>{{session.id}}</td>
+      <td>{{session.lessonname}}</td>
+      <td>{{session.meettime}}</td>
+      <td>
+          <button (click)="delete(session.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
