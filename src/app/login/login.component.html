@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="signInEmailPass()" >
+
+    <label for="email">Email</label>
+    <input type="email" name="email" formControlName="email" autocomplete="email" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" formControlName="password" autocomplete="current-password" required>
+
+    <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+
+  </form>
+
+</div>
