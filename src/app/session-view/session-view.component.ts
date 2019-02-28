@@ -13,6 +13,7 @@ export class SessionViewComponent implements OnInit {
   constructor(private sessionService: SessionService) { }
 
 
+
   ngOnInit() {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
   }
