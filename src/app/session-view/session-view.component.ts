@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Session } from '../session.model';
-import { SessionService } from '../session.service';
+import { Session } from '../core/session.model';
+import { SessionService } from '../core/session.service';
 
 @Component({
   selector: 'app-session-view',
@@ -18,7 +18,7 @@ export class SessionViewComponent implements OnInit {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
   }
 
-  create(session: Session){
+  create(session: Session) {
       this.sessionService.createSession(session);
   }
 

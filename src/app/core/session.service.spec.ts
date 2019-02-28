@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SessionService } from './policy.service';
+import { SessionService } from './session.service';
 
 describe('SessionService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
