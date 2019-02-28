@@ -57,5 +57,76 @@
       </p>
 
 
+<div *ngIf="(auth.user | async) || {} as user" >
+<p>{{ user.uid }}</p> <button (click)="auth.logout()">Log out</button>
+    <form [formGroup]="signupForm" *ngIf="!user.uid"  (ngSubmit)="signup()">
+
+        <h3>New User Signup</h3>
+
+
+
+        <label for="email">Email</label>
+        <input type="email" class="input" [class.is-danger]="email.invalid && email.dirty"
+                formControlName="email" required autocomplete="off">
+
+
+        <div *ngIf="email.invalid && email.dirty" class="notification is-danger">
+            Your email doesn't look quite right...
+        </div>
+
+        <label for="password">Password</label>
+        <input type="password" class="input" [class.is-danger]="password.invalid && password.touched"
+                formControlName="password" required>
+
+        <div *ngIf="password.invalid && password.touched" class="notification is-danger">
+          Password must be between 6 and 24 chars and have at least one number
+        </div>
+
+        <div *ngIf="signupForm.valid" class="notification is-success">Form looks good! Let's do this.</div>
+
+        <button type="submit" class="button is-primary" [disabled]="!signupForm.valid">Submit</button>
+
+      </form>
+
+      <form [formGroup]="roleForm" *ngIf="user.uid && !user.role">
+        <input type="radio" value="learner" formControlName="role" (click)="setRole('learner')"> <span>Parent</span>
+        <input type="radio" value="helper" formControlName="role" (click)="setRole('helper')"> <span>Volunteer</span>
+
+      </form>
+
+      <form [formGroup]="volunteerForm" *ngIf="isVolunteer" (ngSubmit)="updateUser(user)">
+
+        <label for="name">Your Full Name</label>
+        <input type="text" formControlName="name">
+
+        <label for="studentID">NSULA Student ID</label>
+        <input type="text" formControlName="studentID">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" formControlName="phone">
+
+        <button type="submit" [disabled]="!volunteerForm.valid">Next</button>
+
+      </form>
+
+
+
+      <form [formGroup]="parentForm" *ngIf="isParent" (ngSubmit)="updateUser(user)">
+        <h3>Let's get your Details:</h3>
+
+        <label for="parentName">Your Full Name</label>
+        <input type="name" formControlName="parentName">
+
+        <label for="childName">Your Child's Name</label>
+        <input type="name" formControlName="childName">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" formControlName="phone">
+
+        <button type="submit" [disabled]="!parentForm.valid">Submit</button>
+
+      </form>
+
+      <p *ngIf="user.phone"> You have successfully registered!</p>
 
 </div>

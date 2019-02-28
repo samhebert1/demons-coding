@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
-
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { User } from './user';
 
 // interface that defines user information types.
 // @TODO: Change interface User to comply with types for data synchronization.
@@ -17,6 +14,7 @@ interface User {
   name: string;
 }
 
+// This is a service class that gives authentication logic for the app to communicate with Firebase backend.
 @Injectable({
   providedIn: 'root'
 })
@@ -49,6 +47,12 @@ export class AuthService {
     } catch (error) {
       return this.handleError(error);
     }
+  // Signup functionality via email; creates a new user using email/password provided with Firebase backend.
+  emailSignup(email: string, password: string) {
+    return this.fAuth.auth.createUserWithEmailAndPassword(email, password)
+    .then(res => {
+      return this.setUserDoc(res.user);
+    });
   }
 
 // Login function for email users
@@ -66,10 +70,9 @@ export class AuthService {
     return this.fStore.doc(`helpers/${user.email}`).update(data);
   }
 
-  // Error Handler
-  private handleError(error) {
-    console.error(error);
-    // this.notify.update(error.message, 'error');
+  // Logout functionality
+  logout() {
+    this.fAuth.auth.signOut();
   }
 
   // Sets user data to firestore after auth
@@ -79,9 +82,22 @@ export class AuthService {
     const data: User = {
       email: emailData || null,
       name: nameData
+  private setUserDoc(user) {
+    console.log(user);
+
+    const userRef: AngularFirestoreDocument<User> = this.fStore.doc(`users/${user.uid}`);
+
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
     };
 
     return userRef.set(data);
+  }
+
+  // Error Handler
+  private handleError(error) {
+    console.error(error);
   }
 
 }

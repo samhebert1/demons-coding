@@ -3,6 +3,7 @@ import { AuthService } from '../core/auth.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/';
 import { map } from 'rxjs/operators';
+import { Roles } from '../core/user';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +16,13 @@ export class SignupComponent implements OnInit {
   detailForm: FormGroup;
 
   userState;
+  parentForm: FormGroup;
+  roleForm: FormGroup;
+  volunteerForm: FormGroup;
+
+  userState;
+  isParent: boolean;
+  isVolunteer: boolean;
 
   constructor(public fb: FormBuilder, public auth: AuthService) { }
 
@@ -31,6 +39,16 @@ export class SignupComponent implements OnInit {
         'name': ['', [
           ]
         ],
+    // This logic tracks user signup status that is used on HTML-side logic to determine view.
+    this.userState = this.auth.user.pipe(
+      map(user => {
+        if (user) {
+          return user ? 'complete' : 'incomplete';
+        }
+      }));
+
+      // This is the form logic for taking the email and password for registration.
+      this.signupForm = this.fb.group({
       'email': ['', [
         Validators.required,
         Validators.email
@@ -51,6 +69,28 @@ export class SignupComponent implements OnInit {
        this.detailForm = this.fb.group({
         'catchPhrase': ['', [ Validators.required ] ]
       });
+      ]
+    });
+
+    // Form logic for selecting a user type (Parent/learner or Volunteer/helper).
+    this.roleForm = this.fb.group({
+      'role': ['', [Validators.required]]
+    });
+
+    // Volunteer-specific form logic
+    this.volunteerForm = this.fb.group({
+      'name': ['', [Validators.required]],
+      'studentID': ['', [Validators.required]],
+      'phone': ['', [Validators.required]]
+    })
+
+    // Parent-specific form logic
+    this.parentForm = this.fb.group({
+      'parentName': ['', [Validators.required]],
+      'childName': ['', [Validators.required]],
+      'phone': ['', [Validators.required]]
+    });
+
   } // End ngOnInit
 
   // Functions (using getters)
@@ -69,6 +109,58 @@ export class SignupComponent implements OnInit {
   // Step 2
   setCatchPhrase(user) {
     return this.auth.updateUser(user, { catchPhrase:  this.catchPhrase.value });
+
+  get parentName() { return this.parentForm.get('parentName'); }
+  get childName() { return this.parentForm.get('childName'); }
+  get phone() { return this.parentForm.get('phone'); }
+
+  get name() { return this.volunteerForm.get('name'); }
+  get studentID() { return this.volunteerForm.get('studentID')}
+  get studentPhone() { return this.volunteerForm.get('phone'); }
+
+  // Sets the role based on user selection.
+  setRole(role: string) {
+    if (role === 'learner') {
+      this.isVolunteer = false;
+      this.isParent = true;
+      return console.log('role = parent');
+    } else if (role === 'helper') {
+      this.isParent = false;
+      this.isVolunteer = true;
+      return console.log('role = helper');
+    }
+  }
+
+  // Step 1; register a new account.
+  signup() {
+    return this.auth.emailSignup(this.email.value, this.password.value);
+  }
+
+  // Step 2; update the database document with the user's details. Logic changes based on user role.
+  updateUser(user) {
+
+    if (this.isParent) {
+      return this.auth.updateUser(user, {
+      parent: this.parentName.value,
+      child: this.childName.value,
+      phone: this.phone.value,
+      role: {
+        learner: true
+      }
+    });
+    } else if (this.isVolunteer) {
+      return this.auth.updateUser(user, {
+        name: this.name.value,
+        phone: this.studentPhone.value,
+        studentID: this.studentID.value,
+        role: {
+          helper: true
+        }
+      })
+
+    }
+
+
   }
 
 
