@@ -97,6 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
 /* harmony import */ var _contact_contact_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./contact/contact.component */ "./src/app/contact/contact.component.ts");
+
 /* harmony import */ var _session_view_session_view_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./session-view/session-view.component */ "./src/app/session-view/session-view.component.ts");
 
 
@@ -113,7 +114,9 @@ var routes = [
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"] },
     { path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_6__["HomeComponent"] },
     { path: 'contact', component: _contact_contact_component__WEBPACK_IMPORTED_MODULE_7__["ContactComponent"] },
+
     { path: 'sessions', component: _session_view_session_view_component__WEBPACK_IMPORTED_MODULE_8__["SessionViewComponent"] },
+
     { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -199,6 +202,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
+/* harmony import */ var _about_about_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./about/about.component */ "./src/app/about/about.component.ts");
+/* harmony import */ var _contact_contact_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./contact/contact.component */ "./src/app/contact/contact.component.ts");
+
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
@@ -236,6 +253,24 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
+
+                _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"],
+                _home_home_component__WEBPACK_IMPORTED_MODULE_11__["HomeComponent"],
+                _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
+                _about_about_component__WEBPACK_IMPORTED_MODULE_13__["AboutComponent"],
+                _contact_contact_component__WEBPACK_IMPORTED_MODULE_14__["ContactComponent"]
+            ],
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_fire__WEBPACK_IMPORTED_MODULE_3__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].firebase),
+                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestoreModule"],
+                _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuthModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_8__["CoreModule"]
+            ],
+            providers: [],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
                 _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
                 _home_home_component__WEBPACK_IMPORTED_MODULE_12__["HomeComponent"],
@@ -256,6 +291,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
+
         })
     ], AppModule);
     return AppModule;
@@ -354,13 +390,31 @@ var AuthService = /** @class */ (function () {
         // check auth data
         this.user = this.fAuth.authState.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (user) {
             if (user) {
+
+                return _this.fStore.doc("users/" + user.uid).valueChanges();
+
                 return _this.fStore.doc("helpers/" + user.email).valueChanges();
+
             }
             else {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(null);
             }
         }));
     }
+
+    // Email Auth
+    AuthService.prototype.emailSignup = function (email, password) {
+        var _this = this;
+        return this.fAuth.auth.createUserWithEmailAndPassword(email, password)
+            .then(function (user) {
+            return _this.setUserDoc(user);
+        })
+            .catch(function (error) { return _this.handleError(error); });
+    };
+    // Update properties of user doc
+    AuthService.prototype.updateUser = function (user, data) {
+        return this.fStore.doc("users/" + user.uid).update(data);
+
     // Email signup
     AuthService.prototype.emailSignup = function (email, password, name) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -405,6 +459,7 @@ var AuthService = /** @class */ (function () {
     // Update properties of user doc
     AuthService.prototype.updateUser = function (user, data) {
         return this.fStore.doc("helpers/" + user.email).update(data);
+
     };
     // Error Handler
     AuthService.prototype.handleError = function (error) {
@@ -412,11 +467,20 @@ var AuthService = /** @class */ (function () {
         // this.notify.update(error.message, 'error');
     };
     // Sets user data to firestore after auth
+
+    AuthService.prototype.setUserDoc = function (user) {
+        var userRef = this.fStore.doc("users/" + user.uid);
+        var data = {
+            uid: user.uid,
+            email: user.email || null,
+            name: user.name
+
     AuthService.prototype.setUserDoc = function (nameData, emailData) {
         var userRef = this.fStore.doc("helpers/" + emailData);
         var data = {
             email: emailData || null,
             name: nameData
+
         };
         return userRef.set(data);
     };
@@ -549,7 +613,10 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+
+module.exports = "<p>\n  login works!\n</p>\n\n<div *ngIf=\"(auth.user | async) || {} as user\">\n  <form [formGroup]=\"signupForm\" *ngIf=\"!user.uid\" (ngSubmit)=\"signup()\">\n\n    \n  </form>\n\n\n\n</div>\n"
 module.exports = "<p>\r\n  login works!\r\n</p>\r\n"
+
 
 /***/ }),
 
@@ -566,6 +633,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
+/* harmony import */ var _core_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/auth.service */ "./src/app/core/auth.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent(fb, auth) {
+        this.fb = fb;
+        this.auth = auth;
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.signupForm = this.fb.group({
+            'email': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required,
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email
+                ]
+            ],
+            'password': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(6),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].maxLength(25),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required
+                ]
+            ],
+            'region': ['', []
+            ],
+        });
+        this.detailForm = this.fb.group({
+            'catchPhrase': ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]]
+        });
+    };
+    Object.defineProperty(LoginComponent.prototype, "email", {
+        // Using getters will make your code look pretty
+        get: function () { return this.signupForm.get('email'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LoginComponent.prototype, "password", {
+        get: function () { return this.signupForm.get('password'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LoginComponent.prototype, "catchPhrase", {
+        get: function () { return this.detailForm.get('catchPhrase'); },
+        enumerable: true,
+        configurable: true
+    });
+    // Step 1
+    LoginComponent.prototype.signup = function () {
+        return this.auth.emailSignup(this.email.value, this.password.value);
+    };
+    // Step 2
+    LoginComponent.prototype.setCatchPhrase = function (user) {
+        return this.auth.updateUser(user, { catchPhrase: this.catchPhrase.value });
+
 
 var LoginComponent = /** @class */ (function () {
     function LoginComponent() {
@@ -578,7 +701,10 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
+
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"], _core_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -586,6 +712,7 @@ var LoginComponent = /** @class */ (function () {
 
 
 /***/ }),
+
 
 /***/ "./src/app/session-view/session-view.component.css":
 /*!*********************************************************!*\
@@ -705,6 +832,7 @@ var SessionService = /** @class */ (function () {
 
 /***/ }),
 
+
 /***/ "./src/app/signup/signup.component.css":
 /*!*********************************************!*\
   !*** ./src/app/signup/signup.component.css ***!
@@ -723,7 +851,10 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+
+module.exports = "<p>\n  signup works!\n</p>\n"
 module.exports = "<p>\n  signup works!\n</p>\n\n<div *ngIf=\"(auth.user | async) || {} as user\">\n\n    <form [formGroup]=\"signupForm\" *ngIf=\"user.name\" (ngSubmit)=\"signup()\">\n\n        <h3>New User Signup</h3>\n\n\n        <label for=\"name\">Name</label>\n        <input type=\"name\" class=\"input\" formControlName=\"name\" required autocomplete=\"on\">\n\n        <label for=\"email\">Email</label>\n        <input type=\"email\" class=\"input\" [class.is-danger]=\"email.invalid && email.dirty\"\n                formControlName=\"email\" required autocomplete=\"off\">\n\n\n        <div *ngIf=\"email.invalid && email.dirty\" class=\"notification is-danger\">\n            Your email doesn't look quite right...\n        </div>\n\n        <label for=\"password\">Password</label>\n        <input type=\"password\" class=\"input\" [class.is-danger]=\"password.invalid && password.touched\"\n                formControlName=\"password\" required>\n\n        <div *ngIf=\"password.invalid && password.touched\" class=\"notification is-danger\">\n          Password must be between 6 and 24 chars and have at least one number\n        </div>\n\n        <div *ngIf=\"signupForm.valid\" class=\"notification is-success\">Form looks good! Let's do this.</div>\n\n        <button type=\"submit\" class=\"button is-primary\" [disabled]=\"!signupForm.valid\">Submit</button>\n\n\n      </form>\n\n\n\n      <!-- <form [formGroup]=\"detailForm\" *ngIf=\"!user.name\" (ngSubmit)=\"setCatchPhrase(user)\">\n\n        <h3>Set your Catch Phrase</h3>\n\n        <label for=\"catchPhrase\">CatchPhrase</label>\n        <input type=\"test\" class=\"input\"\n                formControlName=\"catchPhrase\" required autocomplete=\"off\">\n\n\n        <button type=\"submit\" class=\"button is-success\" [disabled]=\"!detailForm.valid\">Submit</button>\n\n\n      </form> -->\n\n      <p *ngIf=\"user.catchPhrase\" class=\"text-success\">\n          You have completed the form!\n      </p>\n\n\n\n</div>\n"
+
 
 /***/ }),
 
@@ -739,6 +870,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupComponent", function() { return SignupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+var SignupComponent = /** @class */ (function () {
+    function SignupComponent() {
+    }
+    SignupComponent.prototype.ngOnInit = function () {
 /* harmony import */ var _core_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/auth.service */ "./src/app/core/auth.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
@@ -815,6 +953,7 @@ var SignupComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./signup.component.html */ "./src/app/signup/signup.component.html"),
             styles: [__webpack_require__(/*! ./signup.component.css */ "./src/app/signup/signup.component.css")]
         }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"], _core_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], SignupComponent);
     return SignupComponent;

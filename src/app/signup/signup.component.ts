@@ -13,6 +13,9 @@ import { Roles } from '../core/user';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
+  detailForm: FormGroup;
+
+  userState;
   parentForm: FormGroup;
   roleForm: FormGroup;
   volunteerForm: FormGroup;
@@ -25,6 +28,17 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
 
+    this.userState = this.auth.user.pipe(
+      map(user => {
+        if (user) {
+          return user.email ? 'complete' : 'incomplete';
+        }
+      }));
+
+      this.signupForm = this.fb.group({
+        'name': ['', [
+          ]
+        ],
     // This logic tracks user signup status that is used on HTML-side logic to determine view.
     this.userState = this.auth.user.pipe(
       map(user => {
@@ -46,6 +60,15 @@ export class SignupComponent implements OnInit {
         Validators.maxLength(25),
         Validators.required
         ]
+      ],
+      'region': ['', [
+        ]
+      ],
+    });
+
+       this.detailForm = this.fb.group({
+        'catchPhrase': ['', [ Validators.required ] ]
+      });
       ]
     });
 
@@ -73,6 +96,19 @@ export class SignupComponent implements OnInit {
   // Functions (using getters)
   get email() { return this.signupForm.get('email'); }
   get password() { return this.signupForm.get('password'); }
+  get name() { return this.signupForm.get('name'); }
+
+  get catchPhrase() { return this.detailForm.get('catchPhrase'); }
+
+
+  // Step 1
+  signup() {
+    return this.auth.emailSignup(this.email.value, this.password.value, this.name.value);
+  }
+
+  // Step 2
+  setCatchPhrase(user) {
+    return this.auth.updateUser(user, { catchPhrase:  this.catchPhrase.value });
 
   get parentName() { return this.parentForm.get('parentName'); }
   get childName() { return this.parentForm.get('childName'); }
@@ -126,6 +162,10 @@ export class SignupComponent implements OnInit {
 
 
   }
+
+
+
+
 
 }
 

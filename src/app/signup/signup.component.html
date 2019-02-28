@@ -1,3 +1,62 @@
+<p>
+  signup works!
+</p>
+
+<div *ngIf="(auth.user | async) || {} as user">
+
+    <form [formGroup]="signupForm" *ngIf="!user.name && user.role" (ngSubmit)="signup()">
+      
+        <h3>New User Signup</h3>
+        
+
+        <label for="name">Name</label>
+        <input type="name" class="input" formControlName="name" required autocomplete="on">
+      
+        <label for="email">Email</label>
+        <input type="email" class="input" [class.is-danger]="email.invalid && email.dirty"
+                formControlName="email" required autocomplete="off">
+        
+    
+        <div *ngIf="email.invalid && email.dirty" class="notification is-danger">
+            Your email doesn't look quite right...
+        </div>
+      
+        <label for="password">Password</label>
+        <input type="password" class="input" [class.is-danger]="password.invalid && password.touched"
+                formControlName="password" required>
+      
+        <div *ngIf="password.invalid && password.touched" class="notification is-danger">
+          Password must be between 6 and 24 chars and have at least one number 
+        </div>
+      
+        <div *ngIf="signupForm.valid" class="notification is-success">Form looks good! Let's do this.</div>
+      
+        <button type="submit" class="button is-primary" [disabled]="!signupForm.valid">Submit</button>
+      
+      
+      </form>
+          
+          
+          
+      <form [formGroup]="detailForm" *ngIf="user.name" (ngSubmit)="setCatchPhrase(user)">
+        
+        <h3>Set your Catch Phrase</h3>
+    
+        <label for="catchPhrase">CatchPhrase</label>
+        <input type="test" class="input"
+                formControlName="catchPhrase" required autocomplete="off">
+        
+      
+        <button type="submit" class="button is-success" [disabled]="!detailForm.valid">Submit</button>
+        
+        
+      </form>
+    
+      <p *ngIf="user.catchPhrase" class="text-success">
+          You have completed the form!
+      </p>
+
+
 <div *ngIf="(auth.user | async) || {} as user" >
 <p>{{ user.uid }}</p> <button (click)="auth.logout()">Log out</button>
     <form [formGroup]="signupForm" *ngIf="!user.uid"  (ngSubmit)="signup()">
