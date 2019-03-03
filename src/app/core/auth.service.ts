@@ -1,18 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from './user';
-
-// interface that defines user information types.
-// @TODO: Change interface User to comply with types for data synchronization.
-interface User {
-  email: string;
-  name: string;
-}
 
 // This is a service class that gives authentication logic for the app to communicate with Firebase backend.
 @Injectable({
@@ -39,14 +31,6 @@ export class AuthService {
     );
   }
 
-  // Email signup
-  async emailSignup(email: string, password: string, name: string ) {
-    try {
-      const user = await this.fAuth.auth.createUserWithEmailAndPassword(email, password);
-      return this.setUserDoc(name, email);
-    } catch (error) {
-      return this.handleError(error);
-    }
   // Signup functionality via email; creates a new user using email/password provided with Firebase backend.
   emailSignup(email: string, password: string) {
     return this.fAuth.auth.createUserWithEmailAndPassword(email, password)
@@ -67,7 +51,7 @@ export class AuthService {
 
   // Update properties of user doc
   updateUser(user: User, data: any) {
-    return this.fStore.doc(`helpers/${user.email}`).update(data);
+    return this.fStore.doc(`users/${user.uid}`).update(data);
   }
 
   // Logout functionality
@@ -76,12 +60,6 @@ export class AuthService {
   }
 
   // Sets user data to firestore after auth
-  private setUserDoc(nameData, emailData) {
-    const userRef: AngularFirestoreDocument<User> = this.fStore.doc(`helpers/${emailData}`);
-
-    const data: User = {
-      email: emailData || null,
-      name: nameData
   private setUserDoc(user) {
     console.log(user);
 
