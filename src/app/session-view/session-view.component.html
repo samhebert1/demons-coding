@@ -7,7 +7,7 @@
     <tr *ngFor="let session of sessions">
 
       <td>{{ session.lessonname }}</td>
-      <td>{{ session.meettime | date:'M/dd/yy h:mm a' }}</td>
+      <td>{{ session.meettime | date: 'short' }}</td>
       <td>
           <button (click)="delete(session.id)">Delete</button>
       </td>
