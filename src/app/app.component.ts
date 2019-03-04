@@ -10,7 +10,7 @@ import { AuthService } from './core/auth.service';
 export class AppComponent {
   title = 'demonscoding';
 
-  constructor(private fAuth: AuthService) {}
+  constructor(public fAuth: AuthService) {}
 
   isLoggedIn() {
     return this.fAuth.user.pipe(first()).toPromise();

@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { SessionViewComponent } from './session-view/session-view.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 const routes: Routes = [
 
@@ -16,6 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'sessions', component: SessionViewComponent},
+  { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
