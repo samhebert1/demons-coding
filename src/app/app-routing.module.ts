@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { SessionViewComponent } from './session-view/session-view.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { FormViewComponent } from './form-view/form-view.component';
 
 const routes: Routes = [
 
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'sessions', component: SessionViewComponent},
   { path: 'profile', component: ProfileComponent },
+  { path: 'form', component: FormViewComponent},
+  { path: 'form/:id', component: FormViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
