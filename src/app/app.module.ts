@@ -17,6 +17,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { SessionViewComponent } from './session-view/session-view.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FormViewComponent } from './form-view/form-view.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileComponent } from './profile/profile.component';
     AboutComponent,
     ContactComponent,
     SessionViewComponent,
-    ProfileComponent
+    ProfileComponent,
+    FormViewComponent
   ],
   imports: [
     BrowserModule,
