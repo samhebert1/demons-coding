@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'sessions', component: SessionViewComponent},
-  { path: 'form', component: FormViewComponent },
+  { path: 'form', component: FormViewComponent},
+  { path: 'form/:id', component: FormViewComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

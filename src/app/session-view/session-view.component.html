@@ -9,6 +9,8 @@
       <td>{{ session.lessonname }}</td>
       <td>{{ session.meettime | date: 'short' }}</td>
       <td>
+        <button routerLink="/form/{{session.id}}" >Update</button>
+      <td>
           <button (click)="delete(session.id)">Delete</button>
       </td>
     </tr>

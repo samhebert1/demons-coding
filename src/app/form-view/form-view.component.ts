@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Session } from '../core/session.model';
 import { SessionService } from '../core/session.service';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-form-view',
@@ -10,23 +12,37 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore';
 })
 export class FormViewComponent implements OnInit {
 
-  constructor(private sessionService: SessionService) { }
-
-
-  sessionCollection = this.sessionService.getSessions();
+  constructor(private sessionService: SessionService, private route: ActivatedRoute) { }
+  sessions: Observable<Session[]>;
+  id: string;
+  session: Session;
 
   model = { lessonname: '', meettime: null };
   userSubmit() {
-    this.addSession(this.model);
-    this.model.lessonname = '';
-    this.model.meettime = null;
+    if(this.id == undefined){
+      this.addSession(this.model);
+      this.model.lessonname = '';
+      this.model.meettime = null;
+    } else {
+      this.updateSession(this.model);
+      this.model.lessonname = '';
+      this.model.meettime = null;
+    }
   };
 
   addSession(session) {
     this.sessionService.createSession(session);
   };
 
-  ngOnInit() {
+  updateSession(session){
+    this.sessionService.updateSession(session, this.id);
   }
 
-}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+    this.id = params['id'];
+    });
+
+
+    }
+  }

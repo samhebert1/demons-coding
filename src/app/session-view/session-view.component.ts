@@ -18,12 +18,8 @@ export class SessionViewComponent implements OnInit {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
   }
 
-  create(session: Session) {
-      this.sessionService.createSession(session);
-  }
-
   update(session: Session) {
-    this.sessionService.updateSession(session);
+    
   }
 
   delete(id: string) {

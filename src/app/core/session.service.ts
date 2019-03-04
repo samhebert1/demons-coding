@@ -26,6 +26,7 @@ export class SessionService {
    }
 
 
+
     getSessions(): Observable<Session[]> {
     //  this.sessionCollection = this.firestore.collection<Session>('meetings');
     //  this.session = this.sessionCollection.valueChanges();
@@ -37,9 +38,8 @@ export class SessionService {
       return this.firestore.collection('meetings').add(session);
     }
 
-    updateSession(session: Session) {
-      delete session.id;
-      this.firestore.doc('meetings/' + session.id).update(session);
+    updateSession(session: Session, id: string) {
+      this.firestore.doc('meetings/' + id).update(session);
     }
 
     deleteSession(sessionId: string) {
