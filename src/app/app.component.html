@@ -1,12 +1,29 @@
-<h1>hi</h1>
-<nav class="nav-list">
-  <a routerLink="/home">Home</a>
-  <a routerLink="/about">About</a>
-  <a routerLink="/contact">Contact</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/signup">Sign up</a>
-  <a >Logout</a>
-</nav>
+<h1>Demons Coding Club</h1>
 
+<div *ngIf="fAuth.user | async; then authenticated; else guest">
+  <!-- replaced by template -->
+</div>
+
+<ng-template #authenticated>
+  <nav class="nav-list">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/about">About</a>
+    <a routerLink="/contact">Contact</a>
+    <a routerLink="/sessions">Meetings</a>
+    <a routerLink="/profile">My Profile</a>
+    <a (click)="fAuth.logout()">Sign Out</a>
+  </nav>
+</ng-template>
+
+<ng-template #guest>
+  <nav class="nav-list">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/about">About</a>
+    <a routerLink="/contact">Contact</a>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/signup">Sign up</a>
+    <a routerLink="/sessions">Meetings</a>
+  </nav>
+</ng-template>
 
 <router-outlet></router-outlet>

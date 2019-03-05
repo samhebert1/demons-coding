@@ -5,3 +5,15 @@ service cloud.firestore {
     }
   }
 }
+
+match /posts/{document} {
+
+  function getRole(role) {
+    return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+  }
+
+  allow read;
+  allow update: if getRole('learner' || 'helper' || 'admin') == true;
+  allow create, delete: if getRole('admin') == true;
+
+}

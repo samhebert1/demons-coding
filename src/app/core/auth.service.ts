@@ -23,7 +23,7 @@ export class AuthService {
     this.user = this.fAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.fStore.doc<User>(`helpers/${user.email}`).valueChanges();
+          return this.fStore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -55,8 +55,9 @@ export class AuthService {
   }
 
   // Logout functionality
-  logout() {
-    this.fAuth.auth.signOut();
+  async logout() {
+    await this.fAuth.auth.signOut();
+    return this.router.navigate(['/']);
   }
 
   // Sets user data to firestore after auth
@@ -76,6 +77,30 @@ export class AuthService {
   // Error Handler
   private handleError(error) {
     console.error(error);
+  }
+
+  // Role-based auth ////
+
+  canDelete(user: User): boolean {
+    const allowed = ['admin'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  canEdit(user: User): boolean {
+    const allowed = ['learner', 'helper', 'admin'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+
+  // checks if user has the appropriate role
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) { return false; }
+    for (const role of allowedRoles) {
+      if (user.roles[role] ) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
