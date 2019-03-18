@@ -1,6 +1,10 @@
 
 <div *ngIf="id != undefined; else elseBlock">
 
+ <div >
+   {{ id   }}
+ </div>
+
 <form (ngSubmit)="userSubmit()" #addform="ngForm">
 <div class="form-group">
 <label for="meettime">Meet Time</label>

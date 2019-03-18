@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class FormViewComponent implements OnInit {
 
-  constructor(private sessionService: SessionService, private route: ActivatedRoute) { }
+  constructor(public sessionService: SessionService, private route: ActivatedRoute) { }
   sessions: Observable<Session[]>;
   id: string;
   session: Session;

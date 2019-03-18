@@ -34,6 +34,14 @@ export class SessionService {
     }
 
 
+    // TODO Create a service function that accepts a session UID and user UID, and enrolls the
+    // user to the selected session ID
+
+    sessionEnroll(userUID: string, sessionID: string, role: string) {
+
+    }
+
+// Admin functions only
     createSession(session: Session) {
       return this.firestore.collection('meetings').add(session);
     }
