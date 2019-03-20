@@ -15,7 +15,7 @@ export class AuthService {
   user: Observable<User>;
 
   constructor(
-    private fAuth: AngularFireAuth,
+    public fAuth: AngularFireAuth,
     private fStore: AngularFirestore,
     private router: Router
   ) {
@@ -72,6 +72,10 @@ export class AuthService {
     };
 
     return userRef.set(data);
+  }
+
+  getUser(): Observable<User> {
+    return this.user;
   }
 
   // Error Handler

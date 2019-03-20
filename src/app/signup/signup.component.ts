@@ -117,7 +117,9 @@ export class SignupComponent implements OnInit {
         child: this.childName.value,
         phone: this.phone.value,
         role: {
-          learner: true
+          learner: true,
+          helper: false,
+          admin: false
         }
       });
     } else if (this.isVolunteer) {
@@ -126,7 +128,9 @@ export class SignupComponent implements OnInit {
         phone: this.studentPhone.value,
         studentID: this.studentID.value,
         role: {
-          helper: true
+          helper: true,
+          learner: false,
+          admin: false
         }
       });
     }

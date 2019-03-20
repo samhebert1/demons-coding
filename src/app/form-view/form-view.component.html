@@ -1,6 +1,10 @@
 
 <div *ngIf="id != undefined; else elseBlock">
-<h1>Add New Meeting</h1>
+
+ <div >
+   {{ id   }}
+ </div>
+
 <form (ngSubmit)="userSubmit()" #addform="ngForm">
 <div class="form-group">
 <label for="meettime">Meet Time</label>
@@ -16,6 +20,7 @@
 </div>
 
 <ng-template #elseBlock>
+  <h1>Add New Meeting</h1>
   <form (ngSubmit)="userSubmit()" #addform="ngForm">
   <div class="form-group">
   <label for="meettime">Meet Time</label>
