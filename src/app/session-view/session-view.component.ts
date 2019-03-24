@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Session } from '../core/session.model';
 import { SessionService } from '../core/session.service';
 import { AuthService } from '../core/auth.service';
+import { UserService } from '../core/user.service';
 import { User } from '../core/user';
 import {  authState } from 'rxfire/auth';
 import * as firebase from 'firebase';
+
 
 
 @Component({
@@ -12,36 +14,47 @@ import * as firebase from 'firebase';
   templateUrl: './session-view.component.html',
   styleUrls: ['./session-view.component.css']
 })
+
+
+
 export class SessionViewComponent implements OnInit {
   authie = firebase.auth();
   sessions: Session[];
   u: User;
-
+  users: User[];
+  id: string;
+  MAX_HELPERS = 6;
+  MAX_STUDENTS = 30;
 
   constructor(
     private sessionService: SessionService,
+    private userService: UserService,
     public auth: AuthService
     ) {
-      authState(this.authie).subscribe(user => console.log(`hi ${user.uid}`));
-       }
-
+      authState(this.authie).subscribe(user => {
+        this.id = user.uid;
+      });
+      }
   ngOnInit() {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
-
-    console.log(`${this.u}`);
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+      this.getUser();
+    });
   }
 
-  enrollUser(sessionID: string) {
 
-    let userRole: string;
-
-    if (this.u.roles['learner'] ) {
-      userRole = 'learner';
-    } else if (this.u.roles['helper']) {
-      userRole = 'helper';
+  getUser() {
+    for (let i = 0; i < this.users.length; i++) {
+      if(this.users[i].uid == this.id){
+        this.u = this.users[i];
+      }
     }
+  }
 
-      this.sessionService.sessionEnroll(this.u.uid, sessionID, userRole);
+  enrollUser(session: Session) {
+
+    this.sessionService.sessionEnroll(session, this.u);
 
   }
 

@@ -1,3 +1,10 @@
 export class Session {
-  public constructor(public id: string, public lessonname: string, public meettime: Date) {}
+  
+  public id: string;
+  public lessonname: string;
+  public meettime: Date;
+  public helpers: string[];
+  public students: string[];
+  public numberStudents: number;
+  public numberHelpers: number;
 }

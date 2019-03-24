@@ -17,7 +17,7 @@ export class FormViewComponent implements OnInit {
   id: string;
   session: Session;
 
-  model = { lessonname: '', meettime: null };
+  model = { lessonname: '', meettime: null, helpers: [], students: [], numberHelpers: 0, numberStudents: 0 };
   userSubmit() {
     if(this.id == undefined){
       this.addSession(this.model);

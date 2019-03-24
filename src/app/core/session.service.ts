@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Session } from './session.model';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,19 @@ export class SessionService {
     // TODO Create a service function that accepts a session UID and user UID, and enrolls the
     // user to the selected session ID
 
-    sessionEnroll(userUID: string, sessionID: string, role: string) {
+    sessionEnroll(session: Session, user: User) {
+      //Adds user to meetings roster and updates total enrollment.
+      session.helpers.push(user.uid);
+      this.firestore.doc('meetings/' + session.id).update({
+        "helpers": session.helpers,
+        "numberHelpers": (session.numberHelpers + 1)
+      });
+
+      //Adds meeting to user's enrolled meetings
+      user.meetings.push(session.id);
+      this.firestore.doc('users/' + user.uid).update({
+        "meetings": user.meetings
+      });
 
     }
 
