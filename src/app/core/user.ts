@@ -12,4 +12,5 @@ export interface User {
   email: string;
   name?: string;
   roles?: Roles;
+  meetings?: string[];
 }
