@@ -11,6 +11,6 @@ export interface User {
   uid: string;
   email: string;
   name?: string;
-  roles?: Roles;
+  role?: Roles;
   meetings?: string[];
 }

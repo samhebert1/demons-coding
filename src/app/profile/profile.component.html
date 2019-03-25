@@ -1,11 +1,16 @@
-<div *ngIf="(auth.user | async); then authenticated; else guest"> </div>
+<div *ngIf="(auth.user ); then authenticated; else guest"> </div>
 
 <ng-template #authenticated>
   <div *ngIf="auth.user | async as user">
-    <div *ngIf="user.role['helper']; then helper; else learner"></div>
+    <div *ngIf="auth.isHelper(user); then helper; else learner"></div>
 
     <ng-template #helper>
       <h2>Hello, {{ user.name }}</h2>
+
+      <h3>Account Information</h3>
+      <p>Student ID: {{ user.studentID }}</p>
+      <p>Phone: {{ user.phone }}</p>
+      <p>Email: {{ user.email }}</p>
     </ng-template>
 
     <ng-template #learner>
@@ -17,13 +22,20 @@
       <p>My Phone: {{ user.phone }} </p>
 
     </ng-template>
+
+    <h3>My Enrolled Meetings</h3>
+    <div>
+      {{ user.meetings }}
+
+    </div>
+    
+
+
+
+
+    <h3>My Attended Meetings</h3>
+
 </div>
-
-<h3>My Enrolled Meetings</h3>
-
-<h3>My Attended Meetings</h3>
-
-
 
 </ng-template>
 

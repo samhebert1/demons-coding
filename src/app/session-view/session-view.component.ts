@@ -1,61 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Session } from '../core/session.model';
+import { Component } from '@angular/core';
+
 import { SessionService } from '../core/session.service';
 import { AuthService } from '../core/auth.service';
-import { UserService } from '../core/user.service';
+
 import { User } from '../core/user';
-import {  authState } from 'rxfire/auth';
-import * as firebase from 'firebase';
-
-
+import { Session } from '../core/session.model';
 
 @Component({
   selector: 'app-session-view',
   templateUrl: './session-view.component.html',
   styleUrls: ['./session-view.component.css']
 })
-
-
-
-export class SessionViewComponent implements OnInit {
-  authie = firebase.auth();
+export class SessionViewComponent {
   sessions: Session[];
-  u: User;
+  samsUser: User;
   users: User[];
   id: string;
   MAX_HELPERS = 6;
   MAX_STUDENTS = 30;
 
-  constructor(
-    private sessionService: SessionService,
-    private userService: UserService,
-    public auth: AuthService
-    ) {
-      authState(this.authie).subscribe(user => {
-        this.id = user.uid;
-      });
-      }
-  ngOnInit() {
+  constructor(private sessionService: SessionService, public auth: AuthService) {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
-      this.getUser();
-    });
-  }
-
-
-  getUser() {
-    for (let i = 0; i < this.users.length; i++) {
-      if(this.users[i].uid == this.id){
-        this.u = this.users[i];
-      }
-    }
-  }
+    this.auth.user.subscribe(user => this.samsUser = user);
+    
+   }
 
   enrollUser(session: Session) {
-
-    this.sessionService.sessionEnroll(session, this.u);
-
+    this.sessionService.sessionEnroll(session, this.samsUser);
   }
 
   // Admin function only
@@ -64,7 +35,7 @@ export class SessionViewComponent implements OnInit {
   }
 
   // Admin function only
-  delete(id: string) {
-    this.sessionService.deleteSession(id);
+  delete(session: Session) {
+    this.sessionService.deleteSession(session.id);
   }
 }

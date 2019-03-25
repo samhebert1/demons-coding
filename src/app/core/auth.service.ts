@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { User } from './user';
+import { User, Roles } from './user';
+
 
 // This is a service class that gives authentication logic for the app to communicate with Firebase backend.
 @Injectable({
@@ -13,6 +14,7 @@ import { User } from './user';
 export class AuthService {
 
   user: Observable<User>;
+
 
   constructor(
     public fAuth: AngularFireAuth,
@@ -74,7 +76,7 @@ export class AuthService {
     return userRef.set(data);
   }
 
-  getUser(): Observable<User> {
+  getUserDoc(): Observable<User> {
     return this.user;
   }
 
@@ -85,22 +87,20 @@ export class AuthService {
 
   // Role-based auth ////
 
-  canDelete(user: User): boolean {
-    const allowed = ['admin'];
-    return this.checkAuthorization(user, allowed);
+  isLearner(user: User): boolean {
+    const checkedRoles = ['learner'];
+    return this.CheckRole(user, checkedRoles);
   }
 
-  canEdit(user: User): boolean {
-    const allowed = ['learner', 'helper', 'admin'];
-    return this.checkAuthorization(user, allowed);
+  isHelper(user: User): boolean {
+    const checkedRoles = ['helper'];
+    return this.CheckRole(user, checkedRoles);
   }
 
-
-  // checks if user has the appropriate role
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+  private CheckRole (user: User, roleCheck: string[]): boolean {
     if (!user) { return false; }
-    for (const role of allowedRoles) {
-      if (user.roles[role] ) {
+    for (const role of roleCheck) {
+      if (user.role[role]) {
         return true;
       }
     }
