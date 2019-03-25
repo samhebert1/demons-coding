@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Session } from './session.model';
 import { User } from './user';
+import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class SessionService {
     public session: Observable<Session[]>;
     public sessionDoc: AngularFirestoreDocument<Session>;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, public authService: AuthService) {
     this.sessionCollection = this.firestore.collection('meetings');
     this.session = this.sessionCollection.snapshotChanges().pipe(map(
       changes => {
@@ -24,9 +26,8 @@ export class SessionService {
             return data;
           });
       }));
+
    }
-
-
 
     getSessions(): Observable<Session[]> {
     //  this.sessionCollection = this.firestore.collection<Session>('meetings');
@@ -34,24 +35,34 @@ export class SessionService {
       return this.session;
     }
 
-
-    // TODO Create a service function that accepts a session UID and user UID, and enrolls the
-    // user to the selected session ID
-
+    // Adds user to meetings roster and updates total enrollment.
     sessionEnroll(session: Session, user: User) {
-      //Adds user to meetings roster and updates total enrollment.
+
+      for (const meetingID of user.meetings) {
+        if (meetingID === session.id) {
+          console.log(`you are already signed up for this meeting!`);
+          return;
+        }
+      }
+
+      if (this.authService.isHelper(user)) {
       session.helpers.push(user.uid);
       this.firestore.doc('meetings/' + session.id).update({
-        "helpers": session.helpers,
-        "numberHelpers": (session.numberHelpers + 1)
+        'helpers': session.helpers,
+        'numberHelpers': (session.numberHelpers + 1)
       });
-
-      //Adds meeting to user's enrolled meetings
+    } else if (this.authService.isLearner(user)) {
+      session.students.push(user.uid);
+      this.firestore.doc(`meetings/${session.id}`).update({
+        'students': session.students,
+        'numberStudents': (session.numberStudents++)
+      });
+    }
+      // Adds meeting to user's enrolled meetings
       user.meetings.push(session.id);
       this.firestore.doc('users/' + user.uid).update({
-        "meetings": user.meetings
+        'meetings': user.meetings
       });
-
     }
 
 // Admin functions only

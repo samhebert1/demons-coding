@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { User } from '../core/user';
 
 @Component({
   selector: 'app-signup',
@@ -110,7 +111,7 @@ export class SignupComponent implements OnInit {
   }
 
   // Step 2; update the database document with the user's details. Logic changes based on user role.
-  updateUser(user) {
+  updateUser(user: User) {
     if (this.isParent) {
       return this.auth.updateUser(user, {
         parent: this.parentName.value,
@@ -120,7 +121,8 @@ export class SignupComponent implements OnInit {
           learner: true,
           helper: false,
           admin: false
-        }
+        },
+        meetings: []
       });
     } else if (this.isVolunteer) {
       return this.auth.updateUser(user, {
@@ -131,7 +133,8 @@ export class SignupComponent implements OnInit {
           helper: true,
           learner: false,
           admin: false
-        }
+        },
+        meetings: []
       });
     }
   }
