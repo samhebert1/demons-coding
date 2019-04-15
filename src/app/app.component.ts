@@ -8,7 +8,7 @@ import { AuthService } from './core/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'demonscoding';
+  title = 'NSU Demons Coding Lab';
 
   constructor(public fAuth: AuthService) {}
 

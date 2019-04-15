@@ -1,8 +1,32 @@
-<h1>Demons Coding Club</h1>
+<mat-toolbar color="primary" class="main-toolbar">
+  <mat-toolbar-row>
+    <span class="main-toolbar-row" fxShow="true" fxHide.lt-md="true">
+      <img class="nsu-logo" src="../assets/wordmarksmall2.png">
+      <span> <h3>Demons Coding Lab</h3> </span>
+    </span>
+    <span class="mobile-main-toolbar-row-1" fxShow="true" fxHide.gt-sm="true">
+      <img class="nsu-logo-mobile" src="../assets/Northwestern_State_University_seal.svg.png">
 
-<div *ngIf="fAuth.user | async; then authenticated; else guest">
-  <!-- replaced by template -->
-</div>
+      <span class="fill-space"> </span>
+      <span>
+        <h4>Demons Coding Lab</h4>
+      </span>
+    </span>
+    <span class="fill-space"> </span>
+    <span fxFlex fxShow="true" fxHide.lt-md="true">
+      <div *ngIf="fAuth.user | async; then authenticated; else guest">
+        <!-- replaced by template -->
+      </div>
+    </span>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="mobile-menu" fxShow="true" fxHide.gt-sm="true">
+    <div *ngIf="fAuth.user | async; then authenticated; else guest">
+      <!-- replaced by template -->
+    </div>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
 
 <ng-template #authenticated>
   <nav class="nav-list">
