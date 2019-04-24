@@ -1,4 +1,50 @@
+.main-toolbar-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nsu-logo {
+    border: 0px;
+    padding: 5px;
+    margin: 5px;
+    height: 64px;
+    width: 454px;
+    background-position: center;
+    background-size:  cover;
+    background-repeat: no-repeat;
+
+    
+}
+
+.nsu-logo-mobile {
+    width: 15%;
+    height: 50%;
+    background-position: center;
+    
+
+}
+
+.fill-space {
+    flex: 1 1 auto;
+}
+
 .nav-list a {
     padding: 5px;
     margin: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.mobile-menu {
+    font-size: 14px;
+}
+
+.mobile-main-toolbar-row-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+   
+    text-align: center;
+
 }
