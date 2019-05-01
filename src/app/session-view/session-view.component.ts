@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { SessionService } from '../core/session.service';
 import { AuthService } from '../core/auth.service';
@@ -11,22 +11,29 @@ import { Session } from '../core/session.model';
   templateUrl: './session-view.component.html',
   styleUrls: ['./session-view.component.css']
 })
-export class SessionViewComponent {
-  sessions: Session[];
-  samsUser: User;
+export class SessionViewComponent implements OnInit {
+  public sessions: Session[];
+  user: User;
   users: User[];
   id: string;
   MAX_HELPERS = 6;
   MAX_STUDENTS = 30;
+  displayedColumns: string[] = ['Lesson', 'Meet Time', 'Students', 'Volunteers', 'Enroll'];
 
   constructor(private sessionService: SessionService, public auth: AuthService) {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
-    this.auth.user.subscribe(user => this.samsUser = user);
-    
+    this.auth.user.subscribe(user => this.user = user);
    }
 
-  enrollUser(session: Session) {
-    this.sessionService.sessionEnroll(session, this.samsUser);
+   ngOnInit () {
+
+    console.log(this.user);
+    console.log(this.sessions);
+
+   }
+
+  enrollUser(session: Session, user: User) {
+    this.sessionService.sessionEnroll(session, user);
   }
 
   // Admin function only

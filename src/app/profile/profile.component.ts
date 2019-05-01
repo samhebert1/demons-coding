@@ -16,10 +16,13 @@ export class ProfileComponent implements OnInit {
   samsUser2: User;
   myMeetings: string[];
   meeting: string;
+  profileUser: User;
+  sessionList: string [];
+  userSessions: Session [];
 
   constructor(public auth: AuthService, sessionService: SessionService) {
     this.sessCollection = sessionService.sessionCollection;
-    console.log(`name: ${this.auth.user}`);
+    this.auth.user.subscribe(user => this.profileUser = user);
 
    }
 
@@ -29,5 +32,11 @@ export class ProfileComponent implements OnInit {
     // console.log(this.samsUser2);
   }
 
+  // getUserSessions() {
+  //   this.profileUser.meetings.forEach(meetingID => {
+  //     this.userSessions.push()
+  //     this.sessCollection.
+
+  //   });
 
 }
