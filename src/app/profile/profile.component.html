@@ -24,12 +24,19 @@
     </ng-template>
 
     <h3>My Enrolled Meetings</h3>
-    <div>
-      {{ user.meetings }}
+    <table>
+      <thead>
+        <th>Lesson Name</th>
+        <th>Meet Time</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let meeting of myMeetings">
 
-    </div>
-    
-
+          <td>{{ meeting.lessonname }}</td>
+          <td>{{ meeting.meettime | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
 
 
 

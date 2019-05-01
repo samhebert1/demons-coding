@@ -22,7 +22,9 @@ export class SessionViewComponent implements OnInit {
 
   constructor(private sessionService: SessionService, public auth: AuthService) {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
+
     this.auth.user.subscribe(user => this.user = user);
+
    }
 
    ngOnInit () {
