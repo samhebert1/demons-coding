@@ -14,8 +14,17 @@ export class SessionService {
     public sessionCollection: AngularFirestoreCollection<Session>;
     public session: Observable<Session[]>;
     public sessionDoc: AngularFirestoreDocument<Session>;
+    user: User;
 
   constructor(private firestore: AngularFirestore, public authService: AuthService) {
+
+  }
+
+
+
+    getSessions(): Observable<Session[]> {
+    //  this.sessionCollection = this.firestore.collection<Session>('meetings');
+    //  this.session = this.sessionCollection.valueChanges();
     this.sessionCollection = this.firestore.collection('meetings');
     this.session = this.sessionCollection.snapshotChanges().pipe(map(
       changes => {
@@ -26,11 +35,6 @@ export class SessionService {
             return data;
           });
       }));
-   }
-
-    getSessions(): Observable<Session[]> {
-    //  this.sessionCollection = this.firestore.collection<Session>('meetings');
-    //  this.session = this.sessionCollection.valueChanges();
       return this.session;
     }
 
@@ -52,7 +56,7 @@ export class SessionService {
       });
     } else if (this.authService.isLearner(user)) {
       session.students.push(user.uid);
-      this.firestore.doc(`meetings/${session.id}`).update({
+      this.firestore.doc('meetings/' + session.id).update({
         'students': session.students,
         'numberStudents': (session.numberStudents++)
       });

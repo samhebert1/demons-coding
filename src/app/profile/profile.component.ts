@@ -15,6 +15,19 @@ import { authState } from 'rxfire/auth';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  sessCollection;
+  samsUser2: User;
+  myMeetings: string[];
+  meeting: string;
+  profileUser: User;
+  sessionList: string [];
+  userSessions: Session [];
+
+  constructor(public auth: AuthService, sessionService: SessionService) {
+    this.sessCollection = sessionService.sessionCollection;
+    this.auth.user.subscribe(user => this.profileUser = user);
+
   myMeetings: Session[];
   meetings: string[];
   user: User;
@@ -57,5 +70,11 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  // getUserSessions() {
+  //   this.profileUser.meetings.forEach(meetingID => {
+  //     this.userSessions.push()
+  //     this.sessCollection.
+
+  //   });
 
 }
