@@ -15,10 +15,7 @@
       <td>
         <button routerLink="/form/{{session.id}}" >Update</button>
       <td>
-          <button (click)="delete(session.id)">Delete</button>
-      </td>
-      <td >
-        <button routerLink="/form/{{session.id}}">view</button>
+          <button (click)="delete(session)">Delete</button>
       </td>
       <td>
         <button (click)="enrollUser(session)">Register</button>
@@ -26,3 +23,4 @@
     </tr>
   </tbody>
 </table>
+<button routerLink="/form"> Create new Meeting </button>
