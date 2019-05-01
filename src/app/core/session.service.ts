@@ -17,6 +17,14 @@ export class SessionService {
     user: User;
 
   constructor(private firestore: AngularFirestore, public authService: AuthService) {
+
+  }
+
+
+
+    getSessions(): Observable<Session[]> {
+    //  this.sessionCollection = this.firestore.collection<Session>('meetings');
+    //  this.session = this.sessionCollection.valueChanges();
     this.sessionCollection = this.firestore.collection('meetings');
     this.session = this.sessionCollection.snapshotChanges().pipe(map(
       changes => {
@@ -27,11 +35,6 @@ export class SessionService {
             return data;
           });
       }));
-   }
-
-    getSessions(): Observable<Session[]> {
-    //  this.sessionCollection = this.firestore.collection<Session>('meetings');
-    //  this.session = this.sessionCollection.valueChanges();
       return this.session;
     }
 

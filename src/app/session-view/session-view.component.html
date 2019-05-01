@@ -1,31 +1,5 @@
-<table>
-  <thead>
-    <th>Lesson Name</th>
-    <th>Meet Time</th>
-    <th>Students</th>
-    <th>Helpers</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let session of sessions">
 
-      <td>{{ session.lessonname }}</td>
-      <td>{{ session.meettime | date: 'short' }}</td>
-      <td>{{ session.numberStudents }} / {{ MAX_STUDENTS }}</td>
-      <td>{{ session.numberHelpers }} / {{ MAX_HELPERS }}</td>
-      <td>
-        <button routerLink="/form/{{session.id}}" >Update</button>
-      <td>
-          <button (click)="delete(session.id)">Delete</button>
-      </td>
-      <td >
-        <button routerLink="/form/{{session.id}}">view</button>
-      </td>
-      <td>
-        <button (click)="enrollUser(session)">Register</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
 
 <table mat-table [dataSource]="sessions" class="mat-elevation-z8">
 
@@ -75,3 +49,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <button mat-raised-button>Enroll</button>
+
