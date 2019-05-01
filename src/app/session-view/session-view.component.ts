@@ -29,19 +29,12 @@ export class SessionViewComponent implements OnInit {
 
    ngOnInit () {
 
-    console.log(this.user);
-    console.log(this.sessions);
-
    }
 
   enrollUser(session: Session, user: User) {
     this.sessionService.sessionEnroll(session, user);
   }
 
-  // Admin function only
-  update(session: Session) {
-
-  }
 
   // Admin function only
   delete(session: Session) {

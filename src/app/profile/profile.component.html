@@ -34,6 +34,7 @@
 
           <td>{{ meeting.lessonname }}</td>
           <td>{{ meeting.meettime | date: 'short' }}</td>
+          <td><button (click)="unenroll(meeting)" >Unenroll</button>
         </tr>
       </tbody>
     </table>
