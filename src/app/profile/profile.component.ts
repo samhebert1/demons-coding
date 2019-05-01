@@ -6,7 +6,7 @@ import { User } from '../core/user';
 import { Session } from '../core/session.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {authState} from 'rxfire/auth';
+import { authState } from 'rxfire/auth';
 
 
 @Component({
@@ -23,38 +23,38 @@ export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService, sessionService: SessionService) {
     this.myMeetings = [];
     this.user = this.auth.user.subscribe(user => {
-                                          this.user = user;
-                                          this.getInfo(sessionService);
-                                        }
-                                      );
+      this.user = user;
+      this.getInfo(sessionService);
     }
+    );
+  }
 
-    getInfo(sessionService: SessionService) {
-      sessionService.getSessions().subscribe(sessions => {
-                                                this.sessions = sessions;
-                                                this.getMeetingData();
-                                              }
-                                            )
+  getInfo(sessionService: SessionService) {
+    sessionService.getSessions().subscribe(sessions => {
+      this.sessions = sessions;
+      this.getMeetingData();
     }
+    )
+  }
 
-   getMeetingData() {
-     this.meetings = this.user.meetings;
-     this.queryDBMeetingData();
-   }
+  getMeetingData() {
+    this.meetings = this.user.meetings;
+    this.queryDBMeetingData();
+  }
 
-   queryDBMeetingData() {
-     for (let meeting of this.meetings) {
-       for(let session of this.sessions) {
-         if (session.id === meeting) {
-           this.myMeetings.push(session);
-         }
-       }
-     }
-   }
+  queryDBMeetingData() {
+    for (let meeting of this.meetings) {
+      for (let session of this.sessions) {
+        if (session.id === meeting) {
+          this.myMeetings.push(session);
+        }
+      }
+    }
+  }
 
 
   ngOnInit() {
-    
+
   }
 
 
