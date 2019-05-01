@@ -11,7 +11,6 @@ import { CoreModule } from './core/core.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Design Modules
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
@@ -24,10 +23,11 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
 import { SessionViewComponent } from './session-view/session-view.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormViewComponent } from './form-view/form-view.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
+import { MatInputModule, MatSelectModule, MatRadioModule, MatCardModule } from '@angular/material';
 
 
 @NgModule({
@@ -37,10 +37,10 @@ import { FormViewComponent } from './form-view/form-view.component';
     HomeComponent,
     SignupComponent,
     AboutComponent,
-    ContactComponent,
     SessionViewComponent,
     ProfileComponent,
-    FormViewComponent
+    FormViewComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,11 @@ import { FormViewComponent } from './form-view/form-view.component';
     MatToolbarModule,
     FlexLayoutModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

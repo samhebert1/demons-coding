@@ -101,6 +101,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
         ```
         * ***Don't forget to also add ng-bootstrap to the list of imports!***
     
+    ## Incremental Update 05/01/2019
+    1. Added a Google Forms embedded contact form to the Contact-Form component
+    
+    
+    
 
 
     
