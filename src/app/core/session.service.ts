@@ -26,7 +26,6 @@ export class SessionService {
             return data;
           });
       }));
-
    }
 
     getSessions(): Observable<Session[]> {
@@ -63,6 +62,10 @@ export class SessionService {
       this.firestore.doc('users/' + user.uid).update({
         'meetings': user.meetings
       });
+    }
+
+    getSession(id: string) {
+      return this.firestore.doc('meetings/' + id);
     }
 
 // Admin functions only

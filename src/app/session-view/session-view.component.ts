@@ -22,7 +22,7 @@ export class SessionViewComponent {
   constructor(private sessionService: SessionService, public auth: AuthService) {
     this.sessionService.getSessions().subscribe(sessions => this.sessions = sessions);
     this.auth.user.subscribe(user => this.samsUser = user);
-    
+
    }
 
   enrollUser(session: Session) {
