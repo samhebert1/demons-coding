@@ -14,6 +14,7 @@ export class SessionService {
     public sessionCollection: AngularFirestoreCollection<Session>;
     public session: Observable<Session[]>;
     public sessionDoc: AngularFirestoreDocument<Session>;
+    user: User;
 
   constructor(private firestore: AngularFirestore, public authService: AuthService) {
 
@@ -55,7 +56,7 @@ export class SessionService {
       });
     } else if (this.authService.isLearner(user)) {
       session.students.push(user.uid);
-      this.firestore.doc(`meetings/${session.id}`).update({
+      this.firestore.doc('meetings/' + session.id).update({
         'students': session.students,
         'numberStudents': (session.numberStudents++)
       });
