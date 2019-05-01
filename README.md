@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
  - [x] basic integration with the Angular Material design library 
   - [ ] toolbar
-    - [ ] needs to have dynamic views based on auth state
+    - [x] needs to have dynamic views based on auth state
  - [ ] implement the NSU Logo in toolbar and where appropriate throughout the site
  - [ ] **Everything needs to be coded with the mobile view primarily**
     - [ ] mat-toolbar looks like it needs an additional view constraint. I will use fx
@@ -87,4 +87,20 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     import { FlexLayoutModule } from '@angular/flex-layout';
     ```
     * ***Don't forget to also add FlexLayoutModule to the list of imports!***
+
+    --------------------------------
+   ## Update 04/27/19
+    1.  We're gonna try out Angular Bootstrap because I want to use the Bootstrap Hero Header.
+        * At command Prompt, import Angular Bootstrap:
+        ```
+        npm install --save bootstrap jquery
+        ```
+        * Import the module into *app.module.ts* :
+        ```javascript
+        import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+        ```
+        * ***Don't forget to also add ng-bootstrap to the list of imports!***
+    
+
+
     

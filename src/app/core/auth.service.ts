@@ -97,6 +97,11 @@ export class AuthService {
     return this.CheckRole(user, checkedRoles);
   }
 
+  isAdmin(user:User): boolean {
+    const checkedRoles = ['admin'];
+    return this.CheckRole(user, checkedRoles);
+  }
+
   private CheckRole (user: User, roleCheck: string[]): boolean {
     if (!user) { return false; }
     for (const role of roleCheck) {
