@@ -58,7 +58,7 @@ export class SessionService {
       session.students.push(user.uid);
       this.firestore.doc('meetings/' + session.id).update({
         'students': session.students,
-        'numberStudents': (session.numberStudents++)
+        'numberStudents': (session.numberStudents + 1)
       });
     }
       // Adds meeting to user's enrolled meetings
