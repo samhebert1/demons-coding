@@ -85,5 +85,9 @@ export class SessionService {
       this.firestore.doc('meetings/' + sessionId).delete();
     }
 
+    //Update user database entry
+    updateUser(user: User, id: string) {
+      this.firestore.doc('users/' + id).update(user);
+    }
 
 }

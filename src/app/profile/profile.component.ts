@@ -16,33 +16,32 @@ import { authState } from 'rxfire/auth';
 })
 export class ProfileComponent implements OnInit {
 
-  sessCollection;
-  samsUser2: User;
+
   myMeetings: Session[];
-  meeting: string;
-  profileUser: User;
-  sessionList: string [];
-  userSessions: Session [];
+
   meetings: string[];
   user;
   sessions: Session[];
 
 
-  constructor(public auth: AuthService, sessionService: SessionService) {
+  constructor(public auth: AuthService, public sessionService: SessionService) {
     this.myMeetings = [];
     this.user = this.auth.user.subscribe(user => {
-      this.user = user;
-      this.getInfo(sessionService);
-    }
-    );
+                                          this.user = user;
+                                          this.getInfo();
+                                        }
+                                      );
+
   }
 
-  getInfo(sessionService: SessionService) {
-    sessionService.getSessions().subscribe(sessions => {
-      this.sessions = sessions;
-      this.getMeetingData();
-    }
-    );
+
+    getInfo() {
+      this.sessionService.getSessions().subscribe(sessions => {
+                                                this.sessions = sessions;
+                                                this.getMeetingData();
+                                              }
+                                            )
+
   }
 
   getMeetingData() {
@@ -59,6 +58,40 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
+
+   unenroll(meeting: Session) {
+     //Removes meeting from user object.
+     for (let i = 0; i < this.user.meetings.length; i++) {
+       if (this.user.meetings[i] === meeting.id) {
+         this.user.meetings.splice(i, 1);
+       }
+     }
+     //Updates users Meetings
+     this.sessionService.updateUser(this.user, this.user.uid);
+     //Checks if user is a helper or student
+     if (this.user.role.helper == true){
+       //Removes user from helper list of meeting
+       for (let i = 0; i < meeting.helpers.length; i++) {
+         if (meeting.helpers[i] === this.user.uid) {
+           meeting.helpers.splice(i, 1);
+           meeting.numberHelpers--;
+         }
+       }
+     } else {
+       //Removes user from students list of meeting
+       for (let i = 0; i < meeting.students.length; i++) {
+         if (meeting.students[i] === this.user.uid) {
+           meeting.students.splice(i, 1);
+           meeting.numberStudents--;
+         }
+       }
+     }
+     //Updates meeting in database
+     this.sessionService.updateSession(meeting, meeting.id);
+
+     //Reloads page
+     
+   }
 
 
   ngOnInit() {

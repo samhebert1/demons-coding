@@ -30,10 +30,12 @@ export class FormViewComponent implements OnInit {
     }
   };
 
+//Admin functionality
   addSession(session) {
     this.sessionService.createSession(session);
   };
 
+//Admin functionality
   updateSession(session){
     this.sessionService.updateSession(session, this.id);
   }
