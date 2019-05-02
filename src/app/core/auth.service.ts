@@ -97,7 +97,7 @@ export class AuthService {
     return this.CheckRole(user, checkedRoles);
   }
 
-  isAdmin(user:User): boolean {
+  isAdmin(user: User): boolean {
     const checkedRoles = ['admin'];
     return this.CheckRole(user, checkedRoles);
   }

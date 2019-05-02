@@ -5,11 +5,10 @@ import { SignupComponent } from './signup/signup.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { ContactComponent } from './contact/contact.component';
 import { SessionViewComponent } from './session-view/session-view.component';
 import { ProfileComponent } from './profile/profile.component';
-
 import { FormViewComponent } from './form-view/form-view.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 const routes: Routes = [
 
@@ -17,7 +16,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'contact', component: ContactComponent },
+  { path: 'contact', component: ContactFormComponent },
   { path: 'sessions', component: SessionViewComponent},
   { path: 'profile', component: ProfileComponent },
   { path: 'form', component: FormViewComponent},

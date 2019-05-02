@@ -6,7 +6,7 @@ import { User } from '../core/user';
 import { Session } from '../core/session.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {authState} from 'rxfire/auth';
+import { authState } from 'rxfire/auth';
 
 
 @Component({
@@ -16,10 +16,13 @@ import {authState} from 'rxfire/auth';
 })
 export class ProfileComponent implements OnInit {
 
+
   myMeetings: Session[];
+
   meetings: string[];
-  user: User;
+  user;
   sessions: Session[];
+
 
   constructor(public auth: AuthService, public sessionService: SessionService) {
     this.myMeetings = [];
@@ -28,7 +31,9 @@ export class ProfileComponent implements OnInit {
                                           this.getInfo();
                                         }
                                       );
-    }
+
+  }
+
 
     getInfo() {
       this.sessionService.getSessions().subscribe(sessions => {
@@ -36,22 +41,23 @@ export class ProfileComponent implements OnInit {
                                                 this.getMeetingData();
                                               }
                                             )
+
+  }
+
+  getMeetingData() {
+    this.meetings = this.user.meetings;
+    this.queryDBMeetingData();
+  }
+
+  queryDBMeetingData() {
+    for (let meeting of this.meetings) {
+      for (let session of this.sessions) {
+        if (session.id === meeting) {
+          this.myMeetings.push(session);
+        }
+      }
     }
-
-   getMeetingData() {
-     this.meetings = this.user.meetings;
-     this.queryDBMeetingData();
-   }
-
-   queryDBMeetingData() {
-     for (let meeting of this.meetings) {
-       for(let session of this.sessions) {
-         if (session.id === meeting) {
-           this.myMeetings.push(session);
-         }
-       }
-     }
-   }
+  }
 
    unenroll(meeting: Session) {
      //Removes meeting from user object.
