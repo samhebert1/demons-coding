@@ -15,6 +15,8 @@ export class SessionService {
     public session: Observable<Session[]>;
     public sessionDoc: AngularFirestoreDocument<Session>;
     user: User;
+    public userCollection: AngularFirestoreCollection<User>;
+    public users: Observable<User[]>;
 
   constructor(private firestore: AngularFirestore, public authService: AuthService) {
 
@@ -23,8 +25,6 @@ export class SessionService {
 
 
     getSessions(): Observable<Session[]> {
-    //  this.sessionCollection = this.firestore.collection<Session>('meetings');
-    //  this.session = this.sessionCollection.valueChanges();
     this.sessionCollection = this.firestore.collection('meetings');
     this.session = this.sessionCollection.snapshotChanges().pipe(map(
       changes => {
@@ -68,9 +68,6 @@ export class SessionService {
       });
     }
 
-    getSession(id: string) {
-      return this.firestore.doc('meetings/' + id);
-    }
 
 // Admin functions only
     createSession(session: Session) {
@@ -88,6 +85,20 @@ export class SessionService {
     //Update user database entry
     updateUser(user: User, id: string) {
       this.firestore.doc('users/' + id).update(user);
+    }
+
+    getUsers(): Observable<User[]> {
+    this.userCollection = this.firestore.collection('users');
+    this.users = this.userCollection.snapshotChanges().pipe(map(
+      changes => {
+        return changes.map(
+          a => {
+            const data = a.payload.doc.data() as User;
+            data.uid = a.payload.doc.id;
+            return data;
+          });
+      }));
+      return this.users;
     }
 
 }

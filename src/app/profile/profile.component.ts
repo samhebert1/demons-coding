@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
      this.sessionService.updateSession(meeting, meeting.id);
 
      //Reloads page
-     
+     window.location.reload();
    }
 
 

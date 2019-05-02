@@ -2,7 +2,20 @@
 <div *ngIf="id != undefined; else elseBlock">
 
  <div >
-   {{ id   }}
+   <ul>
+     <li>Meeting Name:  {{meeting.lessonname}}</li>
+     <li>Meeting Time:  {{meeting.meettime | date: 'short' }}</li>
+   </ul>
+
+   <h5>Enrollled Helpers</h5>
+   <ul *ngFor="let helper of enrolledHelpers">
+     <li>{{helper.name}}</li>
+   </ul>
+
+   <h5>Enrolled Students</h5>
+   <ul *ngFor="let student of enrolledStudents">
+     <li>{{student.child}}</li>
+   </ul>
  </div>
 
 <form (ngSubmit)="userSubmit()" #addform="ngForm">
