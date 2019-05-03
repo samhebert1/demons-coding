@@ -43,7 +43,7 @@ export class SessionService {
 
       for (const meetingID of user.meetings) {
         if (meetingID === session.id) {
-          console.log(`you are already signed up for this meeting!`);
+          alert(`you are already signed up for this meeting!`);
           return;
         }
       }

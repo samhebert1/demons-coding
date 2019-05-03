@@ -44,6 +44,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<div *ngIf="auth.isAdmin(user)">
+<button mat-raised-button routerLink="/form" >Create New Meeting</button>
 
-<button mat-raised-button routerLink="/form">Create New Meting</button>
-
+</div>

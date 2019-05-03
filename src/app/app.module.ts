@@ -14,7 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatListModule} from '@angular/material/list';
 
 
 // Components
@@ -28,6 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormViewComponent } from './form-view/form-view.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { MatInputModule, MatSelectModule, MatRadioModule, MatCardModule } from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -59,7 +61,10 @@ import { MatInputModule, MatSelectModule, MatRadioModule, MatCardModule } from '
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

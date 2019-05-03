@@ -103,6 +103,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     
     ## Incremental Update 05/01/2019
     1. Added a Google Forms embedded contact form to the Contact-Form component
+
+    ## Update 05/03/2019
+   - [x] about page
+   - [x] add isAdmin Check
+   - [x] trigger alert on enrollment
+   
+
     
     
     

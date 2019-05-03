@@ -1,0 +1,19 @@
+.about-body {
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+.gallery {
+    /* width: 50%; */
+    /* margin: 50px; */
+}
+
+.carousel img {
+    margin: auto;
+    background-size: cover;
+}
+
+mat-list-item {
+    font-weight: bold; 
+}
