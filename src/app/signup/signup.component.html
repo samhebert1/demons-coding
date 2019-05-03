@@ -4,10 +4,18 @@
   <div *ngIf="(auth.user | async) || {} as user">
 
     <p>{{ user.uid }}</p>
-    <button (click)="auth.logout()">Log out</button>
+
 
     <form [formGroup]="signupForm" *ngIf="!user.uid" (ngSubmit)="signup()">
-      <h3>New User Signup</h3>
+      <h3 class=".mat-h3">New User Signup</h3>
+      <p class=".mat-body-strong who-reg"><i>Who Should Register:</i></p>
+      <ul>
+        <mat-list>
+         <li> <mat-list-item>College Student Volunteers</mat-list-item></li>
+         <li> <mat-list-item>Parents of children in schools in Alexandria or Natchitoches, LA.</mat-list-item></li>
+         <li> <mat-list-item><a routerLink="/contact">*Contact Us</a>  to request Admin access</mat-list-item></li>
+        </mat-list>
+      </ul>
 
       <label for="email">Email</label>
       <input
@@ -43,7 +51,7 @@
         Form looks good! Let's do this.
       </div>
 
-      <button
+      <button mat-raised-button color="primary"
         type="submit"
         class="button is-primary"
         [disabled]="!signupForm.valid"

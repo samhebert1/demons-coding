@@ -1,5 +1,7 @@
 <div>
 
+  <h2 class=".mat-h2">Login</h2>
+
   <form [formGroup]="loginForm" (ngSubmit)="signInEmailPass()" >
 
     <label for="email">Email</label>
@@ -8,7 +10,7 @@
     <label for="password">Password</label>
     <input type="password" name="password" formControlName="password" autocomplete="current-password" required>
 
-    <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
 
   </form>
 

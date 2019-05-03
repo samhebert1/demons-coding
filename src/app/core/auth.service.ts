@@ -48,6 +48,7 @@ export class AuthService {
     this.router.navigate(['home']);
   } catch (error) {
     return this.handleError(error);
+    alert('That email / password combination did not work');
   }
 }
 
